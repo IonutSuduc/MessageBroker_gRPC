@@ -13,8 +13,15 @@ namespace Client
             Console.InputEncoding = Encoding.UTF8;
 
             // Conectare prin gRPC channel la adresa brokerului
-            string address = $"http://{Settings.ServerIp}:{Settings.Port}";
-            using var channel = GrpcChannel.ForAddress(address);
+            // 1. Configurăm un handler care permite utilizarea certificatului local auto-semnat în mediu de dezvoltare
+            var handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
+            // 2. Schimbăm schema în "https" și folosim portul configurat (ex: 5001)
+            string address = $"https://{Settings.ServerIp}:5001";
+
+            // 3. Creăm canalul gRPC trecând handler-ul de mai sus
+            using var channel = GrpcChannel.ForAddress(address, new GrpcChannelOptions { HttpHandler = handler });
             var client = new MessageBrokerService.MessageBrokerServiceClient(channel);
 
             string[] topics = Settings.Topics;
