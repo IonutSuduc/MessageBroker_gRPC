@@ -1,0 +1,35 @@
+﻿syntax = "proto3";
+
+package broker;
+
+// Serviciul centralizat al brokerului de mesaje
+service MessageBrokerService {
+    // Metodă prin care Sender-ul trimite mesaje
+    rpc PublishMessage (MessageRequest) returns (PublishResponse);
+
+    // Metodă prin care Receiver-ul se abonează și primește stream continuu de mesaje
+    rpc Subscribe (SubscribeRequest) returns (stream MessageResponse);
+}
+
+message MessageRequest {
+    string subject = 1;
+    string sender_id = 2;
+    string content = 3;
+}
+
+message PublishResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message SubscribeRequest {
+    string subject = 1;
+    bool load_history = 2;
+}
+
+message MessageResponse {
+    string subject = 1;
+    string sender_id = 2;
+    string content = 3;
+    string timestamp = 4;
+}

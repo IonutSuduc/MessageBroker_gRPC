@@ -1,0 +1,39 @@
+# =================部====================
+# Visual Studio / .NET Core & Framework
+# ======================================
+[Bb]in/
+[Oo]bj/
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ======================================
+# Build Results & Outputs
+# ======================================
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]uild/
+
+# ======================================
+# NuGet Packages
+# ======================================
+**/packages/*
+!**/packages/build/
+*.nupkg
+*.snupkg
+
+# ======================================
+# IDEs & Other Tools
+# ======================================
+.idea/
+*.sln.iml
+.vscode/
